@@ -3,7 +3,7 @@ import pytest
 import numpy as np
 import tempfile
 import os
-from solution import create_line_plot, create_scatter_plot, create_histogram, create_subplots, save_figure
+from exercise import create_line_plot, create_scatter_plot, create_histogram, create_subplots, save_figure
 
 def test_create_line_plot():
     x = np.linspace(0, 10, 100)

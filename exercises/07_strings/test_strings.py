@@ -2,7 +2,7 @@
 Tests for Exercise 7: String Manipulation
 """
 import pytest
-from solution import (
+from exercise import (
     clean_text, format_accuracy, parse_model_name,
     create_report, tokenize_simple, encode_decode_utf8
 )

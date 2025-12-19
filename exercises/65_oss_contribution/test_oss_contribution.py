@@ -1,6 +1,6 @@
 """Tests for OSS contribution tracking"""
 import pytest
-from solution import ContributionTracker
+from exercise import ContributionTracker
 
 def test_contribution_tracker():
     tracker = ContributionTracker("pytorch", "https://github.com/pytorch/pytorch/pull/12345")

@@ -1,6 +1,6 @@
 """Tests for Exercise 30"""
 import pytest
-from solution import constant_time, linear_search, logarithmic_search, analyze_complexity
+from exercise import constant_time, linear_search, logarithmic_search, analyze_complexity
 
 def test_constant_time():
     assert constant_time([1, 2, 3]) == 1

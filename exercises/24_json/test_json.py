@@ -2,7 +2,7 @@
 import pytest
 import tempfile
 import os
-from solution import dict_to_json_string, json_string_to_dict, save_config, load_config
+from exercise import dict_to_json_string, json_string_to_dict, save_config, load_config
 
 def test_dict_to_json():
     result = dict_to_json_string({'a': 1, 'b': 2})

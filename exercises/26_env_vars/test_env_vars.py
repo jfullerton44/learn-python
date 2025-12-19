@@ -1,7 +1,7 @@
 """Tests for Exercise 26"""
 import pytest
 import os
-from solution import get_env_var, set_env_var, get_api_key, load_env_config
+from exercise import get_env_var, set_env_var, get_api_key, load_env_config
 
 def test_get_env_var():
     os.environ['TEST_VAR'] = 'test_value'

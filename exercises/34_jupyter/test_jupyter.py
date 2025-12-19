@@ -1,6 +1,6 @@
 """Tests for Exercise 34"""
 import pytest
-from solution import simulate_cell_execution, list_magic_commands, create_markdown_cell, create_code_cell
+from exercise import simulate_cell_execution, list_magic_commands, create_markdown_cell, create_code_cell
 
 def test_simulate_cell_execution():
     result = simulate_cell_execution("2 + 2")

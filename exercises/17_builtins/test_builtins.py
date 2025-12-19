@@ -1,6 +1,6 @@
 """Tests for Exercise 17"""
 import pytest
-from solution import count_items, create_pairs, enumerate_items, check_type, get_attribute, find_extremes
+from exercise import count_items, create_pairs, enumerate_items, check_type, get_attribute, find_extremes
 
 def test_count_items():
     assert count_items([1, 2, 3]) == 3

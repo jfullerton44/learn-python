@@ -1,5 +1,5 @@
 import pytest
-from solution import *
+from exercise import *
 def test_worker():
     assert worker_function() == "completed"
 if __name__ == "__main__":

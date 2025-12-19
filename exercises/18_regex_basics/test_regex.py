@@ -1,6 +1,6 @@
 """Tests for Exercise 18"""
 import pytest
-from solution import find_emails, extract_numbers, validate_phone, replace_dates
+from exercise import find_emails, extract_numbers, validate_phone, replace_dates
 
 def test_find_emails():
     text = "Contact: user@example.com or admin@test.org"

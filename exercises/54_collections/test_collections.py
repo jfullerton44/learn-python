@@ -1,6 +1,6 @@
 """Tests for Exercise 54"""
 import pytest
-from solution import *
+from exercise import *
 
 def test_ml_component():
     component = MLComponent("test")

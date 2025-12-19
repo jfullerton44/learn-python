@@ -1,5 +1,5 @@
 import pytest
-from solution import *
+from exercise import *
 def test_example():
     assert example_function() == sum(range(1000))
 if __name__ == "__main__":

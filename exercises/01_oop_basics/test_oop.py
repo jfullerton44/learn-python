@@ -1,8 +1,11 @@
 """
 Tests for Exercise 1: Object-Oriented Programming Basics
+
+Run against your exercise: pytest test_oop.py -v
+Run against solution: pytest test_oop.py -v --import-mode=solution
 """
 import pytest
-from solution import Model, NeuralNetwork, ModelRegistry
+from exercise import Model, NeuralNetwork, ModelRegistry
 
 
 class TestModel:

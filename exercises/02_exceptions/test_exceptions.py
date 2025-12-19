@@ -4,7 +4,7 @@ Tests for Exercise 2: Exception Handling
 import pytest
 import os
 import tempfile
-from solution import (
+from exercise import (
     DataLoadError, ModelTrainingError, ValidationError,
     DataLoader, ModelTrainer, safe_divide, process_with_cleanup,
     opened_resources, closed_resources

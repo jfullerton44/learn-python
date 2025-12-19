@@ -1,7 +1,7 @@
 """Tests for Exercise 22"""
 import pytest
 import logging
-from solution import setup_basic_logger, log_training_progress, log_error
+from exercise import setup_basic_logger, log_training_progress, log_error
 
 def test_setup_basic_logger():
     logger = setup_basic_logger('test')

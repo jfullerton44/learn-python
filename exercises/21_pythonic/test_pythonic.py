@@ -1,7 +1,7 @@
 """Tests for Exercise 21"""
 import pytest
 import tempfile
-from solution import eafp_file_read, lbyl_file_read, duck_typing_len, pythonic_swap, list_comprehension_even
+from exercise import eafp_file_read, lbyl_file_read, duck_typing_len, pythonic_swap, list_comprehension_even
 
 def test_eafp_file_read():
     assert eafp_file_read('/nonexistent') is None

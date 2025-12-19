@@ -5,7 +5,7 @@ import pytest
 from datetime import datetime, timedelta
 from collections import Counter, defaultdict
 import logging
-from solution import (
+from exercise import (
     count_tokens, create_default_config, parse_log_line,
     calculate_training_time, setup_logger, parse_args_for_training
 )

@@ -3,7 +3,7 @@ Tests for Exercise 4: Lambda Functions
 """
 import pytest
 import math
-from solution import (
+from exercise import (
     apply_activation, filter_by_threshold, sort_by_confidence,
     compute_total_loss, create_scaler
 )

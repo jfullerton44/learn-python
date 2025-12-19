@@ -1,6 +1,6 @@
 """Tests for Exercise 29"""
 import pytest
-from solution import sort_by_value, sort_by_key, sort_descending, sort_by_confidence, in_place_sort
+from exercise import sort_by_value, sort_by_key, sort_descending, sort_by_confidence, in_place_sort
 
 def test_sort_by_value():
     assert sort_by_value([3, 1, 2]) == [1, 2, 3]

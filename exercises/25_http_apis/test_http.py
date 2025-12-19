@@ -1,6 +1,6 @@
 """Tests for Exercise 25"""
 import pytest
-from solution import mock_get_request, mock_post_request, fetch_model_predictions, submit_training_job
+from exercise import mock_get_request, mock_post_request, fetch_model_predictions, submit_training_job
 
 def test_mock_get():
     response = mock_get_request('http://api.example.com')

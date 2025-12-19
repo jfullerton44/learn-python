@@ -2,7 +2,7 @@
 Tests for Exercise 9: Modules and Packages
 """
 import pytest
-from solution import BaseModel, NeuralNet, load_data, save_checkpoint
+from exercise import BaseModel, NeuralNet, load_data, save_checkpoint
 
 
 def test_base_model():

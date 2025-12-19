@@ -1,7 +1,7 @@
 """Tests for Exercise 31"""
 import pytest
 import numpy as np
-from solution import split_data, train_logistic_regression, make_predictions, create_pipeline
+from exercise import split_data, train_logistic_regression, make_predictions, create_pipeline
 
 def test_split_data():
     X = np.array([[1, 2], [3, 4], [5, 6], [7, 8]])

@@ -2,7 +2,7 @@
 Tests for Exercise 3: List/Dict/Set Comprehensions
 """
 import pytest
-from solution import (
+from exercise import (
     square_numbers, filter_even, create_feature_dict, extract_labels,
     flatten_matrix, unique_lengths, conditional_transform, batch_normalize
 )

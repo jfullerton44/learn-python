@@ -2,7 +2,7 @@
 Tests for Exercise 13: Basic Testing
 """
 import pytest
-from solution import add, subtract, multiply, divide
+from exercise import add, subtract, multiply, divide
 
 def test_add():
     assert add(2, 3) == 5

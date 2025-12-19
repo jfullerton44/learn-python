@@ -1,7 +1,7 @@
 """Tests for Exercise 19"""
 import pytest
 from datetime import datetime
-from solution import parse_date, format_date, add_days, calculate_duration, get_current_timestamp
+from exercise import parse_date, format_date, add_days, calculate_duration, get_current_timestamp
 
 def test_parse_date():
     dt = parse_date("2024-01-15")

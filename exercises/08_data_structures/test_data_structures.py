@@ -2,7 +2,7 @@
 Tests for Exercise 8: Basic Data Structures
 """
 import pytest
-from solution import (
+from exercise import (
     store_predictions, manage_hyperparams, deduplicate_samples,
     cache_results, implement_stack, implement_queue
 )

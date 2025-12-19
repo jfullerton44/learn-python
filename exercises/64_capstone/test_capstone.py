@@ -1,6 +1,6 @@
 """Tests for capstone project"""
 import pytest
-from solution import Tensor, Model, Trainer, DataLoader
+from exercise import Tensor, Model, Trainer, DataLoader
 
 def test_tensor():
     t = Tensor([1, 2, 3], requires_grad=True)

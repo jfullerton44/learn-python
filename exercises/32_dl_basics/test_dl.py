@@ -1,7 +1,7 @@
 """Tests for Exercise 32"""
 import pytest
 import numpy as np
-from solution import create_tensor, tensor_add, tensor_multiply, create_network
+from exercise import create_tensor, tensor_add, tensor_multiply, create_network
 
 def test_create_tensor():
     tensor = create_tensor((2, 3))

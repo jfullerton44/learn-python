@@ -4,7 +4,7 @@ Tests for Exercise 12: Pandas Basics
 import pytest
 import pandas as pd
 import numpy as np
-from solution import (
+from exercise import (
     create_dataframe, filter_by_condition, group_and_aggregate,
     handle_missing, select_columns, add_computed_column
 )

@@ -2,7 +2,7 @@
 import pytest
 import tempfile
 import os
-from solution import pickle_save, pickle_load, json_save, json_load, serialize_model_weights, deserialize_model_weights
+from exercise import pickle_save, pickle_load, json_save, json_load, serialize_model_weights, deserialize_model_weights
 
 def test_pickle_save_load():
     with tempfile.NamedTemporaryFile(delete=False) as f:

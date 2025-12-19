@@ -1,6 +1,6 @@
 """Tests for Exercise 14"""
 import pytest
-from solution import demonstrate_legb, use_global, use_nonlocal, create_counter, global_var
+from exercise import demonstrate_legb, use_global, use_nonlocal, create_counter, global_var
 
 def test_legb():
     assert demonstrate_legb() == "local"

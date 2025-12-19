@@ -1,6 +1,6 @@
 """Tests for Exercise 15"""
 import pytest
-from solution import process_numbers, get_config, find_item, split_data
+from exercise import process_numbers, get_config, find_item, split_data
 
 def test_process_numbers():
     assert process_numbers([1, 2, 3]) == 6

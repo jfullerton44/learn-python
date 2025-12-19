@@ -1,6 +1,6 @@
 """Tests for Exercise 16"""
 import pytest
-from solution import sum_all, create_model, train_model, process
+from exercise import sum_all, create_model, train_model, process
 
 def test_sum_all():
     assert sum_all(1, 2, 3, 4) == 10

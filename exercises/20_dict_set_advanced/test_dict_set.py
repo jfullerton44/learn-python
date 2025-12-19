@@ -1,6 +1,6 @@
 """Tests for Exercise 20"""
 import pytest
-from solution import safe_get, ensure_key, merge_dicts, set_union, set_intersection, set_difference
+from exercise import safe_get, ensure_key, merge_dicts, set_union, set_intersection, set_difference
 
 def test_safe_get():
     d = {'a': 1}

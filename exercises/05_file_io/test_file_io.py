@@ -6,7 +6,7 @@ import os
 import tempfile
 import json
 from pathlib import Path
-from solution import (
+from exercise import (
     read_text_file, write_text_file, read_csv_as_dicts, write_csv_from_dicts,
     read_json, write_json, append_to_log, ensure_directory_exists
 )

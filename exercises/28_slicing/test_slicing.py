@@ -1,6 +1,6 @@
 """Tests for Exercise 28"""
 import pytest
-from solution import get_every_nth, reverse_list, get_last_n, get_middle_section, create_slice_object, apply_slice
+from exercise import get_every_nth, reverse_list, get_last_n, get_middle_section, create_slice_object, apply_slice
 
 def test_get_every_nth():
     assert get_every_nth([0, 1, 2, 3, 4, 5], 2) == [0, 2, 4]

@@ -3,7 +3,7 @@ Tests for Exercise 11: NumPy Basics
 """
 import pytest
 import numpy as np
-from solution import (
+from exercise import (
     create_array, create_zeros, array_stats, normalize_array,
     matrix_multiply, select_rows, reshape_array
 )

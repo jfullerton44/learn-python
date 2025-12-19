@@ -1,7 +1,7 @@
 """Tests for Exercise 33"""
 import pytest
 import numpy as np
-from solution import normalize_features, standardize_features, one_hot_encode, split_train_val_test
+from exercise import normalize_features, standardize_features, one_hot_encode, split_train_val_test
 
 def test_normalize_features():
     data = np.array([[0, 10], [5, 5], [10, 0]])

@@ -2,7 +2,7 @@
 Tests for Exercise 10: Virtual Environments and Dependencies
 """
 import pytest
-from solution import (
+from exercise import (
     create_requirements_dict, parse_requirements_file,
     generate_requirements_txt, check_package_installed, get_python_version
 )

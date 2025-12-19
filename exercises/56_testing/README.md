@@ -1,13 +1,30 @@
-# Exercise 56: Testing
+# Exercise 56: Advanced Testing
 
-Advanced Python patterns for production ML systems.
+## Concept
 
-## Key Concepts
-- Real-world ML engineering patterns
-- Production-ready code practices
-- Scalable system design
+Advanced testing techniques for robust ML codebases including mocking, fixtures, and property-based testing.
+
+### Key Concepts
+
+1. **Mocking**: Isolate units under test
+2. **Fixtures**: Reusable test setup
+3. **Parametrization**: Test multiple inputs
+4. **Property-based testing**: Generate test cases
+
+## AI/ML Application
+
+- Testing model components in isolation
+- Data pipeline testing
+- Reproducible test environments
+
+## Your Task
+
+1. `MLComponent` class - Testable component
+2. `Pipeline` class - Pipeline with test hooks
+3. `create_component(name)` - Factory
+4. `validate_config(config)` - Validation
 
 ## Testing
 ```bash
-pytest exercises/56_testing/test_*.py -v
+pytest exercises/56_testing/test_testing.py -v
 ```

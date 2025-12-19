@@ -1,6 +1,6 @@
 """Tests for Exercise 23"""
 import pytest
-from solution import parse_training_args
+from exercise import parse_training_args
 
 def test_parse_training_args():
     args = parse_training_args(['--model', 'resnet', '--epochs', '20'])

@@ -48,7 +48,8 @@ pip install -r requirements.txt
 ### Structure
 Each exercise contains:
 - `README.md` - Concept explanation and task description
-- `solution.py` - Your implementation (starter code provided)
+- `exercise.py` - Starter template with stubs (implement your solution here)
+- `solution.py` - Reference implementation (check after attempting)
 - `test_*.py` - Test suite to validate your solution
 
 ### Workflow
@@ -59,8 +60,8 @@ cd exercises/01_oop_basics
 cat README.md
 ```
 
-2. **Implement the solution**
-Edit `solution.py` to complete the tasks
+2. **Implement your solution**
+Edit `exercise.py` to complete the tasks (stubs are provided)
 
 3. **Run the tests**
 ```bash
@@ -70,11 +71,15 @@ pytest test_oop.py -v
 4. **Iterate**
 Fix any failing tests and improve your solution
 
+5. **Check the reference solution**
+Once your tests pass (or if you're stuck), review `solution.py`
+
 ### Running Tests
 
 ```bash
-# Run tests for a specific exercise
-pytest exercises/01_oop_basics/test_oop.py -v
+# Run tests for a specific exercise (from exercise directory)
+cd exercises/01_oop_basics
+pytest test_oop.py -v
 
 # Run all tests in a phase
 pytest exercises/{01..10}*/test_*.py -v
@@ -84,6 +89,15 @@ pytest exercises/ -v
 
 # Run with coverage
 pytest exercises/ --cov=exercises --cov-report=html
+```
+
+### Testing Against Solution
+
+To verify the reference solution works:
+```bash
+# Temporarily test against solution.py
+cd exercises/01_oop_basics
+python -c "from solution import *; print('Solution works!')"
 ```
 
 ## 📋 Learning Path
