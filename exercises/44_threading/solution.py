@@ -12,7 +12,7 @@ async def async_worker():
 class ThreadPool:
     def __init__(self, workers=4):
         self.workers = workers
-    
+
     def map(self, func, items):
         threads = []
         results = []

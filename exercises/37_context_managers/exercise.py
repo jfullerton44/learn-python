@@ -5,7 +5,6 @@ Complete the implementations below. Run tests to verify your solution.
 """
 from contextlib import contextmanager
 
-
 class FileManager:
     """TODO: Implement this class"""
 
@@ -24,8 +23,6 @@ class FileManager:
         # TODO: Implement
         pass
 
-
-
 class GPUMemoryManager:
     """TODO: Implement this class"""
 
@@ -43,8 +40,6 @@ class GPUMemoryManager:
         """TODO: Implement this method"""
         # TODO: Implement
         pass
-
-
 
 def training_mode():
     """TODO: Implement this function"""

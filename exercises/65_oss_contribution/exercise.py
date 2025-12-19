@@ -5,7 +5,6 @@ Students should document their OSS contribution here.
 Complete the implementations below. Run tests to verify your solution.
 """
 
-
 class ContributionTracker:
     """Track OSS contributions"""
 

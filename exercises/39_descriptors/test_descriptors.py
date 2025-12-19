@@ -10,7 +10,7 @@ def test_typed_property_valid():
 def test_typed_property_invalid():
     with pytest.raises(TypeError):
         Model("invalid", 100)
-    
+
     with pytest.raises(TypeError):
         Model(0.01, "invalid")
 
@@ -19,7 +19,7 @@ def test_lazy_property():
         @LazyProperty
         def expensive_computation(self):
             return 42
-    
+
     obj = MyClass()
     # First access computes
     result = obj.expensive_computation

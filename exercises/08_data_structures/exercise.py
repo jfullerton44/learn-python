@@ -4,36 +4,27 @@ Exercise 8: Basic Data Structures
 Complete the implementations below. Run tests to verify your solution.
 """
 from collections import deque
-from typing import List, Tuple, Dict, Any, Callable
-
+from typing import List, Callable
 
 def store_predictions(predictions: List, labels: List):
     """Return list of tuples pairing predictions with labels."""
     # TODO: Implement
     pass
 
-
-
 def manage_hyperparams():
     """Return dictionary with nested hyperparameter structure."""
     # TODO: Implement
     pass
-
-
 
 def deduplicate_samples(samples: List):
     """Use set to remove duplicates while preserving order."""
     # TODO: Implement
     pass
 
-
-
 def cache_results(func: Callable, args_list):
     """Cache function results in dictionary."""
     # TODO: Implement
     pass
-
-
 
 class Stack:
     """Simple stack implementation using list."""
@@ -63,14 +54,10 @@ class Stack:
         # TODO: Implement
         pass
 
-
-
 def implement_stack():
     """Return a Stack instance."""
     # TODO: Implement
     pass
-
-
 
 class Queue:
     """Queue implementation using collections.deque."""
@@ -99,8 +86,6 @@ class Queue:
         """TODO: Implement this method"""
         # TODO: Implement
         pass
-
-
 
 def implement_queue():
     """Return a Queue instance."""

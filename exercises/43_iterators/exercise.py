@@ -5,13 +5,10 @@ Complete the implementations below. Run tests to verify your solution.
 """
 import time
 
-
 def example_function():
     """TODO: Implement this function"""
     # TODO: Implement
     pass
-
-
 
 class Iterator:
     """TODO: Implement this class"""

@@ -10,7 +10,7 @@ class Tensor:
         self.data = data
         self.grad = None
         self.requires_grad = requires_grad
-    
+
     def backward(self):
         if self.requires_grad:
             self.grad = 1.0
@@ -19,7 +19,7 @@ class Model:
     """Base model class"""
     def forward(self, x):
         return x
-    
+
     def parameters(self):
         return []
 
@@ -29,10 +29,10 @@ class Trainer:
         self.model = model
         self.optimizer = optimizer
         self.callbacks = []
-    
+
     def add_callback(self, callback):
         self.callbacks.append(callback)
-    
+
     def train(self, epochs):
         for epoch in range(epochs):
             for callback in self.callbacks:
@@ -48,10 +48,10 @@ class DataLoader:
         self.batch_size = batch_size
         self.cache = cache
         self._cache = {}
-    
+
     def __iter__(self):
         for i in range(0, len(self.dataset), self.batch_size):
             yield self.dataset[i:i+self.batch_size]
-    
+
     def __len__(self):
         return (len(self.dataset) + self.batch_size - 1) // self.batch_size

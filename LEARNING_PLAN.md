@@ -275,7 +275,7 @@ This repository contains a comprehensive, progressive series of 65 exercises des
 - **AI Application**: Exploratory data analysis, experiment notebooks, visualization
 - **Deliverables**:
   - `exercises/34_jupyter/README.md`
-  - `exercises/34_jupyter/solution.ipynb`
+  - `exercises/34_jupyter/solution.py`
   - `exercises/34_jupyter/test_jupyter.py`
 
 #### Exercise 35: Matplotlib/Seaborn Basics

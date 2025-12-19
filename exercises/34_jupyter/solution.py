@@ -10,7 +10,7 @@ def simulate_cell_execution(code_string):
 def list_magic_commands():
     """List common Jupyter magic commands"""
     return [
-        "%timeit", "%time", "%matplotlib", "%load", 
+        "%timeit", "%time", "%matplotlib", "%load",
         "%%writefile", "%%bash", "%pip", "%conda"
     ]
 

@@ -81,8 +81,8 @@ Once your tests pass (or if you're stuck), review `solution.py`
 cd exercises/01_oop_basics
 pytest test_oop.py -v
 
-# Run all tests in a phase
-pytest exercises/{01..10}*/test_*.py -v
+# Run all tests in a phase (from repo root)
+pytest exercises/0{1,2,3,4,5,6,7,8,9}_*/test_*.py exercises/{10..35}_*/test_*.py -v
 
 # Run all tests
 pytest exercises/ -v
@@ -179,9 +179,11 @@ ls exercises/
 # Count completed exercises
 find exercises/ -name "solution.py" -type f | wc -l
 
-# Run specific phase tests
-pytest exercises/{01..35}*/test_*.py  # Phase 0
-pytest exercises/{36..39}*/test_*.py  # Phase 1
+# Run Phase 0 tests (exercises 01-35)
+pytest exercises/0{1,2,3,4,5,6,7,8,9}_*/test_*.py exercises/{10..35}_*/test_*.py -v
+
+# Run Phase 1 tests (exercises 36-39)
+pytest exercises/3{6,7,8,9}_*/test_*.py -v
 
 # Check Python version
 python --version

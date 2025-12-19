@@ -6,10 +6,10 @@ class MLComponent:
     """Base class for ML components"""
     def __init__(self, name: str):
         self.name = name
-    
+
     def process(self, data: Any) -> Any:
         return data
-    
+
     def __repr__(self):
         return f"{self.__class__.__name__}(name={self.name})"
 
@@ -17,11 +17,11 @@ class Pipeline:
     """ML Pipeline implementation"""
     def __init__(self):
         self.steps = []
-    
+
     def add_step(self, component: MLComponent):
         self.steps.append(component)
         return self
-    
+
     def execute(self, data: Any) -> Any:
         for step in self.steps:
             data = step.process(data)

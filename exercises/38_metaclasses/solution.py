@@ -1,7 +1,7 @@
 """Exercise 38: Metaclasses"""
 class ModelRegistry(type):
     models = {}
-    
+
     def __new__(mcs, name, bases, attrs):
         cls = super().__new__(mcs, name, bases, attrs)
         if name != 'BaseModel':

@@ -6,7 +6,6 @@ This is a starter template. Students should expand this into a full framework.
 Complete the implementations below. Run tests to verify your solution.
 """
 
-
 class Tensor:
     """Basic tensor with autograd support"""
 
@@ -20,8 +19,6 @@ class Tensor:
         # TODO: Implement
         pass
 
-
-
 class Model:
     """Base model class"""
 
@@ -34,8 +31,6 @@ class Model:
         """TODO: Implement this method"""
         # TODO: Implement
         pass
-
-
 
 class Trainer:
     """Training loop orchestrator"""
@@ -54,8 +49,6 @@ class Trainer:
         """TODO: Implement this method"""
         # TODO: Implement
         pass
-
-
 
 class DataLoader:
     """Custom data loader with caching"""

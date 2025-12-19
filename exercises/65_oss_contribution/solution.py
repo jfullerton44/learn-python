@@ -9,10 +9,10 @@ class ContributionTracker:
         self.project_name = project_name
         self.pr_url = pr_url
         self.status = "in_progress"
-    
+
     def mark_merged(self):
         self.status = "merged"
-    
+
     def get_summary(self):
         return {
             "project": self.project_name,

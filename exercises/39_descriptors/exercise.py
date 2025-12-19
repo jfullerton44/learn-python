@@ -4,7 +4,6 @@ Exercise 39: Descriptors
 Complete the implementations below. Run tests to verify your solution.
 """
 
-
 class TypedProperty:
     """TODO: Implement this class"""
 
@@ -23,8 +22,6 @@ class TypedProperty:
         # TODO: Implement
         pass
 
-
-
 class Model:
     """TODO: Implement this class"""
 
@@ -32,8 +29,6 @@ class Model:
         """TODO: Implement this method"""
         # TODO: Implement
         pass
-
-
 
 class LazyProperty:
     """TODO: Implement this class"""

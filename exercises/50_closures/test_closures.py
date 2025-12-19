@@ -17,7 +17,7 @@ def test_pipeline():
 def test_validate_config():
     valid_config = {"model": "resnet", "data": "/path"}
     assert validate_config(valid_config) == True
-    
+
     invalid_config = {"model": "resnet"}
     assert validate_config(invalid_config) == False
 

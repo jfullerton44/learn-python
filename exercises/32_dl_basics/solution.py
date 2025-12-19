@@ -22,7 +22,7 @@ class SimpleNeuralNet:
     def __init__(self, input_size, hidden_size, output_size):
         self.w1 = np.random.randn(input_size, hidden_size) * 0.01
         self.w2 = np.random.randn(hidden_size, output_size) * 0.01
-    
+
     def forward(self, x):
         """Forward pass"""
         hidden = np.maximum(0, np.dot(x, self.w1))  # ReLU

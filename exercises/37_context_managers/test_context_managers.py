@@ -7,7 +7,7 @@ def test_file_manager():
     with tempfile.NamedTemporaryFile(mode='w', delete=False) as f:
         f.write("test content")
         filepath = f.name
-    
+
     with FileManager(filepath, 'r') as file:
         content = file.read()
         assert content == "test content"

@@ -6,10 +6,9 @@ Complete the implementations below. Run tests with:
     pytest test_oop.py -v
 """
 
-
 class Model:
     """Base class for ML models.
-    
+
     Attributes:
         name: Model name
         version: Model version
@@ -23,7 +22,7 @@ class Model:
 
     def train(self, data):
         """Train the model on provided data.
-        
+
         Should print and return: "Training {name}..."
         """
         # TODO: Implement training
@@ -31,7 +30,7 @@ class Model:
 
     def predict(self, input_data):
         """Make a prediction on input data.
-        
+
         Should return: "prediction for {input_data}"
         """
         # TODO: Implement prediction
@@ -40,7 +39,7 @@ class Model:
     @classmethod
     def from_checkpoint(cls, checkpoint_dict: dict):
         """Create a Model instance from a checkpoint dictionary.
-        
+
         The checkpoint_dict contains 'name', 'version', and 'parameters' keys.
         """
         # TODO: Create and return a Model from the checkpoint dict
@@ -49,7 +48,7 @@ class Model:
     @staticmethod
     def validate_parameters(params):
         """Validate that parameters is a dictionary.
-        
+
         Returns True if params is a dict, False otherwise.
         """
         # TODO: Implement validation
@@ -57,7 +56,7 @@ class Model:
 
     def __str__(self):
         """Human-readable string representation.
-        
+
         Should return: "{name} v{version}"
         """
         # TODO: Implement string representation
@@ -65,7 +64,7 @@ class Model:
 
     def __repr__(self):
         """Developer-friendly representation.
-        
+
         Should return: "Model(name={name}, version={version})"
         """
         # TODO: Implement repr
@@ -76,10 +75,9 @@ class Model:
         # TODO: Implement equality check
         pass
 
-
 class NeuralNetwork(Model):
     """Neural network model that inherits from Model.
-    
+
     Additional attributes:
         layers: List of layer names
         activation: Activation function name
@@ -87,7 +85,7 @@ class NeuralNetwork(Model):
 
     def __init__(self, name: str, version: str, parameters: dict, activation: str):
         """Initialize a neural network with additional activation attribute.
-        
+
         Don't forget to call super().__init__() and initialize layers as empty list.
         """
         # TODO: Call parent __init__ and set layers and activation
@@ -100,16 +98,15 @@ class NeuralNetwork(Model):
 
     def train(self, data):
         """Train the neural network, including layer information.
-        
+
         Should print and return: "Training {name} with {num_layers} layers..."
         """
         # TODO: Override train to include layer count
         pass
 
-
 class ModelRegistry:
     """Registry to manage multiple models.
-    
+
     Attributes:
         models: Dictionary mapping model names to model instances
     """

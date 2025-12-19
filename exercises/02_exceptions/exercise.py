@@ -4,25 +4,17 @@ Create exception handling utilities for an ML pipeline.
 
 Complete the implementations below. Run tests to verify your solution.
 """
-import os
 opened_resources = []
 closed_resources = []
-
 
 class DataLoadError(Exception):
     """Raised when data cannot be loaded."""
 
-
-
 class ModelTrainingError(Exception):
     """Raised when model training fails."""
 
-
-
 class ValidationError(ValueError):
     """Raised when validation fails."""
-
-
 
 class DataLoader:
     """Data loader with exception handling."""
@@ -36,8 +28,6 @@ class DataLoader:
         """Validate data, raise ValidationError if empty or None."""
         # TODO: Implement
         pass
-
-
 
 class ModelTrainer:
     """Model trainer with exception handling."""
@@ -55,16 +45,12 @@ Returns dict with: success (bool), message (str), error (Exception or None)"""
         # TODO: Implement
         pass
 
-
-
 def safe_divide(a, b):
     """Safely divide a by b.
 Returns result if successful, None if ZeroDivisionError.
 Prints "Division successful" in else clause."""
     # TODO: Implement
     pass
-
-
 
 def process_with_cleanup(resource_name: str):
     """Process resource with proper cleanup in finally block.

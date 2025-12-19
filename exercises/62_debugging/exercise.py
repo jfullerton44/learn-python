@@ -3,9 +3,8 @@ Solution implementation
 
 Complete the implementations below. Run tests to verify your solution.
 """
-from typing import Any, Callable, Dict, List
+from typing import Any, Dict
 import functools
-
 
 class MLComponent:
     """Base class for ML components"""
@@ -25,8 +24,6 @@ class MLComponent:
         # TODO: Implement
         pass
 
-
-
 class Pipeline:
     """ML Pipeline implementation"""
 
@@ -45,21 +42,15 @@ class Pipeline:
         # TODO: Implement
         pass
 
-
-
 def create_component(name: str):
     """Factory function"""
     # TODO: Implement
     pass
 
-
-
 def validate_config(config: Dict):
     """Validate configuration dictionary"""
     # TODO: Implement
     pass
-
-
 
 def decorator_factory(param):
     """Decorator factory pattern"""

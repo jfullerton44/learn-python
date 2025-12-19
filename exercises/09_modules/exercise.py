@@ -11,7 +11,6 @@ The actual module files should be created separately:
 Complete the implementations below. Run tests to verify your solution.
 """
 
-
 class BaseModel:
     """Base model class."""
 
@@ -24,8 +23,6 @@ class BaseModel:
         """TODO: Implement this method"""
         # TODO: Implement
         pass
-
-
 
 class NeuralNet(BaseModel):
     """Neural network model."""
@@ -40,14 +37,10 @@ class NeuralNet(BaseModel):
         # TODO: Implement
         pass
 
-
-
 def load_data(path):
     """Load data from path."""
     # TODO: Implement
     pass
-
-
 
 def save_checkpoint(model, path):
     """Save model checkpoint."""
