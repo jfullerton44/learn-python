@@ -17,24 +17,24 @@ class Model:
 
     def __init__(self, name: str, version: str, parameters: dict):
         """Initialize a model with name, version, and parameters."""
-        # TODO: Store the attributes
-        pass
+        self.name = name
+        self.version = version
+        self.parameters = parameters
+        
 
     def train(self, data):
         """Train the model on provided data.
 
         Should print and return: "Training {name}..."
         """
-        # TODO: Implement training
-        pass
+        print(f"Training {self.name}...")
 
     def predict(self, input_data):
         """Make a prediction on input data.
 
         Should return: "prediction for {input_data}"
         """
-        # TODO: Implement prediction
-        pass
+        print(f"prediction for {input_data}")
 
     @classmethod
     def from_checkpoint(cls, checkpoint_dict: dict):
@@ -42,8 +42,7 @@ class Model:
 
         The checkpoint_dict contains 'name', 'version', and 'parameters' keys.
         """
-        # TODO: Create and return a Model from the checkpoint dict
-        pass
+        
 
     @staticmethod
     def validate_parameters(params):
