@@ -70,6 +70,28 @@ dropped the last partial batch (#142).
 - [x] Ran linter (`flake8`) with no new warnings
 ```
 
+### Example: Writing a Bug Fix with Tests
+
+```python
+# Before your fix (the bug):
+def batch_iterator(data, batch_size):
+    """Yields batches — but drops the last partial batch!"""
+    for i in range(0, len(data) - batch_size, batch_size):
+        yield data[i:i + batch_size]
+
+# After your fix:
+def batch_iterator(data, batch_size):
+    """Yields batches, including the final partial batch."""
+    for i in range(0, len(data), batch_size):
+        yield data[i:i + batch_size]
+
+# Always add a test for the fix:
+def test_partial_last_batch():
+    data = [1, 2, 3, 4, 5]
+    batches = list(batch_iterator(data, batch_size=2))
+    assert batches == [[1, 2], [3, 4], [5]]  # last partial batch included
+```
+
 ### Finding Issues to Work On
 
 ```bash
