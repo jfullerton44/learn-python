@@ -24,53 +24,55 @@ Jupyter notebooks are interactive computing environments combining code, text, a
 ```python
 # In Jupyter, each cell can be executed independently
 # Code cells return the result of the last expression
-def simulate_cell(code):
-    """Simulate running a Jupyter code cell."""
-    result = eval(code)
-    print(f"Out: {result}")
-    return result
+def run_expression(expr_string):
+    """Demonstrate how Jupyter evaluates and displays results."""
+    try:
+        output = eval(expr_string)
+        return {"status": "ok", "output": output}
+    except Exception as e:
+        return {"status": "error", "output": str(e)}
 
-simulate_cell("2 + 3")       # Out: 5
-simulate_cell("[x**2 for x in range(5)]")  # Out: [0, 1, 4, 9, 16]
+print(run_expression("3 * 7"))            # {'status': 'ok', 'output': 21}
+print(run_expression("1 / 0"))            # {'status': 'error', 'output': 'division by zero'}
 ```
 
 ### Common Magic Commands
 
 ```python
 # Magic commands are special Jupyter-only commands prefixed with % or %%
-magic_commands = {
-    "%timeit":      "Time a single line repeatedly for benchmarking",
-    "%%time":       "Time the entire cell (runs once)",
-    "%matplotlib":  "Set up matplotlib for inline display",
-    "%run":         "Run an external Python script",
-    "%who":         "List variables in the namespace",
-    "%history":     "Show command history",
-    "%pwd":         "Print the current working directory",
-    "%%writefile":  "Write cell contents to a file",
-}
+jupyter_specials = [
+    ("%timeit",     "Benchmark a single line by running it many times"),
+    ("%%time",      "Measure wall time for an entire cell"),
+    ("%matplotlib", "Enable inline plotting"),
+    ("%run",        "Execute an external .py script"),
+    ("%who",        "Show all variables in the current namespace"),
+    ("%history",    "Display input history"),
+    ("%pwd",        "Print current working directory"),
+    ("%%writefile", "Save cell contents to a file on disk"),
+]
 
 # Example usage in a Jupyter notebook:
-# %timeit sum(range(1000))
+# %timeit sorted(range(1000))
 # %%time
-# data = [x**2 for x in range(1_000_000)]
+# results = [n ** 0.5 for n in range(1_000_000)]
 ```
 
 ### Markdown and Code Cells
 
 ```python
-# Jupyter notebooks are made of cells, each with a type
-def create_markdown_cell(content):
-    return {"cell_type": "markdown", "content": content}
+# Jupyter notebooks are JSON files with a list of cell dicts
+# Each cell has a "cell_type" and source content
 
-def create_code_cell(code):
-    return {"cell_type": "code", "content": code}
+# A notebook is essentially a list of cell structures:
+notebook_cells = [
+    {"cell_type": "markdown", "content": "# Experiment Log\nResults from **trial 3**."},
+    {"cell_type": "code",     "content": "import numpy as np\ndata = np.random.randn(100)"},
+    {"cell_type": "markdown", "content": "## Summary\nMean and std of the sample:"},
+    {"cell_type": "code",     "content": "print(f'mean={data.mean():.2f}, std={data.std():.2f}')"},
+]
 
-# Markdown cells support headers, lists, LaTeX, and more
-intro = create_markdown_cell("# My Analysis\nThis notebook explores **sales data**.")
-step1 = create_code_cell("import pandas as pd\ndf = pd.read_csv('sales.csv')")
-
-print(intro)
-# {'cell_type': 'markdown', 'content': '# My Analysis\nThis notebook explores **sales data**.'}
+for cell in notebook_cells:
+    print(f"[{cell['cell_type'].upper()}] {cell['content'][:40]}...")
 ```
 
 ## Your Task

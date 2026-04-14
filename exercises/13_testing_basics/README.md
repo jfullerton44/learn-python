@@ -7,68 +7,68 @@ Writing unit tests with pytest, assertions, test organization.
 
 ### pytest Assertions
 ```python
-# test_math.py
-def test_addition():
-    assert 2 + 3 == 5
+# test_basics.py
+def test_arithmetic():
+    assert 7 * 6 == 42
 
-def test_string_upper():
-    assert "hello".upper() == "HELLO"
+def test_string_lower():
+    assert "WORLD".lower() == "world"
 
-def test_list_contains():
-    fruits = ["apple", "banana", "cherry"]
-    assert "banana" in fruits
+def test_dict_has_key():
+    config = {"host": "localhost", "port": 8080}
+    assert "port" in config
 ```
 
 ### Test Functions — Testing Your Own Code
 ```python
-# calculator.py
-def divide(a, b):
-    if b == 0:
-        raise ValueError("Cannot divide by zero")
-    return a / b
+# temperature.py
+def celsius_to_fahrenheit(celsius):
+    if not isinstance(celsius, (int, float)):
+        raise TypeError("Temperature must be a number")
+    return celsius * 9 / 5 + 32
 
-# test_calculator.py
+# test_temperature.py
 import pytest
-from calculator import divide
+from temperature import celsius_to_fahrenheit
 
-def test_divide_normal():
-    assert divide(10, 2) == 5.0
+def test_boiling_point():
+    assert celsius_to_fahrenheit(100) == 212
 
-def test_divide_by_zero():
-    with pytest.raises(ValueError):
-        divide(10, 0)
+def test_invalid_input():
+    with pytest.raises(TypeError):
+        celsius_to_fahrenheit("hot")
 ```
 
 ### Test Organization — Group Related Tests
 ```python
 # Use descriptive names: test_<function>_<scenario>
-def test_divide_positive_numbers():
-    assert divide(10, 2) == 5.0
+def test_freezing_point():
+    assert celsius_to_fahrenheit(0) == 32
 
-def test_divide_negative_numbers():
-    assert divide(-10, 2) == -5.0
+def test_negative_temperature():
+    assert celsius_to_fahrenheit(-40) == -40.0
 
-def test_divide_returns_float():
-    result = divide(7, 2)
-    assert result == 3.5
-    assert isinstance(result, float)
+def test_returns_numeric():
+    result = celsius_to_fahrenheit(25)
+    assert result == 77.0
+    assert isinstance(result, (int, float))
 ```
 
 ### Edge Case Testing
 ```python
-def test_divide_by_zero_raises():
-    with pytest.raises(ValueError):
-        divide(1, 0)
+def test_invalid_type_raises():
+    with pytest.raises(TypeError):
+        celsius_to_fahrenheit(None)
 
-def test_divide_zero_numerator():
-    assert divide(0, 5) == 0.0
+def test_absolute_zero():
+    assert celsius_to_fahrenheit(-273.15) == pytest.approx(-459.67)
 
-def test_divide_large_numbers():
-    assert divide(1_000_000, 1_000) == 1_000.0
+def test_body_temperature():
+    assert celsius_to_fahrenheit(37) == pytest.approx(98.6)
 
-def test_divide_small_floats():
-    result = divide(1, 3)
-    assert abs(result - 0.3333) < 0.001  # approximate comparison
+def test_fractional_degrees():
+    result = celsius_to_fahrenheit(0.5)
+    assert abs(result - 32.9) < 0.01  # approximate comparison
 ```
 
 ## Your Task

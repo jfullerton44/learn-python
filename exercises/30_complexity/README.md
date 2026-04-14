@@ -22,56 +22,63 @@ Understanding time and space complexity helps you write efficient code. Big O no
 ### O(1) — Constant time: same speed regardless of input size
 
 ```python
-def get_first(items):
-    return items[0]  # Always one operation, no matter how big the list
+def lookup_by_key(mapping, key):
+    return mapping[key]  # Dict lookup is O(1) on average
 
-data = list(range(1_000_000))
-first = get_first(data)  # Instant, even with a million items
+scores = {f"player_{i}": i * 10 for i in range(1_000_000)}
+score = lookup_by_key(scores, "player_999")  # Instant, even with a million entries
 ```
 
 ### O(n) — Linear time: grows proportionally with input size
 
 ```python
-def linear_search(items, target):
-    for i, item in enumerate(items):  # May check every element
-        if item == target:
-            return i
-    return -1
+def find_max(numbers):
+    biggest = numbers[0]
+    for num in numbers:  # Must check every element
+        if num > biggest:
+            biggest = num
+    return biggest
 
-index = linear_search([10, 20, 30, 40, 50], 40)  # Returns 3
+result = find_max([3, 7, 2, 9, 4])  # Returns 9
+# Doubling the list roughly doubles the time
 ```
 
 ### O(log n) — Logarithmic time: halves the problem each step
 
 ```python
-def binary_search(sorted_items, target):
-    low, high = 0, len(sorted_items) - 1
+def guess_number(secret, low=1, high=100):
+    steps = 0
     while low <= high:
         mid = (low + high) // 2
-        if sorted_items[mid] == target:
-            return mid
-        elif sorted_items[mid] < target:
+        steps += 1
+        if mid == secret:
+            return steps
+        elif mid < secret:
             low = mid + 1
         else:
             high = mid - 1
-    return -1
+    return steps
 
-# Searching 1,000,000 items takes ~20 steps instead of 1,000,000
-result = binary_search(list(range(100)), 73)  # Returns 73
+# Guessing among 100 numbers takes at most 7 steps
+# Guessing among 1,000,000 takes at most ~20 steps
+print(guess_number(73))  # Only a few steps needed
 ```
 
 ### O(n²) — Quadratic time: nested loops over the input
 
 ```python
-def find_all_pairs(items):
-    pairs = []
-    for i in range(len(items)):       # n iterations
-        for j in range(len(items)):   # × n iterations = n² total
-            pairs.append((items[i], items[j]))
-    return pairs
+def has_duplicates_naive(items):
+    count = 0
+    for i in range(len(items)):            # n iterations
+        for j in range(i + 1, len(items)): # × ~n/2 iterations = O(n²)
+            count += 1
+            if items[i] == items[j]:
+                return True, count
+    return False, count
 
-# 5 items → 25 pairs; 100 items → 10,000 pairs
-pairs = find_all_pairs([1, 2, 3])  # 9 pairs
+# 10 items → 45 comparisons; 100 items → 4,950 comparisons
+found, checks = has_duplicates_naive([1, 2, 3, 4, 5])
+print(f"Duplicate: {found}, comparisons: {checks}")  # False, 10
 ```
 
 ## Your Task

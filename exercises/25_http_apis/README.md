@@ -59,18 +59,24 @@ else:
 ### Basic mock pattern for testing without network calls
 
 ```python
-class MockResponse:
-    def __init__(self, json_data, status_code=200):
-        self.json_data = json_data
-        self.status_code = status_code
+class FakeHTTPResponse:
+    """Mimics the interface of a requests.Response for testing."""
+    def __init__(self, body, code=200):
+        self._body = body
+        self.status_code = code
+        self.ok = 200 <= code < 300
 
     def json(self):
-        return self.json_data
+        return self._body
 
 # Use in tests instead of real HTTP calls
-mock_resp = MockResponse({"result": "success"}, 200)
-print(mock_resp.json())         # {'result': 'success'}
-print(mock_resp.status_code)    # 200
+fake = FakeHTTPResponse({"users": ["alice", "bob"]}, 200)
+print(fake.json())          # {'users': ['alice', 'bob']}
+print(fake.status_code)     # 200
+print(fake.ok)              # True
+
+error_resp = FakeHTTPResponse({"error": "not found"}, 404)
+print(error_resp.ok)        # False
 ```
 
 ## Your Task

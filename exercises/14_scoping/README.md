@@ -87,20 +87,22 @@ print(make_greeting("Hi"))  # "Hello"
 ### Closures — Functions That Remember Their Enclosing Scope
 
 ```python
-def create_counter(start=0):
-    count = start
+def make_greeter(greeting):
+    times_called = 0
 
-    def increment():
-        nonlocal count
-        count += 1
-        return count
+    def greet(name):
+        nonlocal times_called
+        times_called += 1
+        return f"{greeting}, {name}! (call #{times_called})"
 
-    return increment
+    return greet
 
-counter = create_counter()
-print(counter())  # 1
-print(counter())  # 2
-print(counter())  # 3
+say_hello = make_greeter("Hello")
+print(say_hello("Alice"))  # "Hello, Alice! (call #1)"
+print(say_hello("Bob"))    # "Hello, Bob! (call #2)"
+
+say_hi = make_greeter("Hi")
+print(say_hi("Eve"))       # "Hi, Eve! (call #1)" — separate state
 ```
 
 ## Your Task
