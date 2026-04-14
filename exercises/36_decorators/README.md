@@ -23,23 +23,26 @@ Decorators modify or enhance functions without changing their code. They're esse
 ### Basic Decorator
 
 ```python
-import time
-
-def timer(func):
-    """Decorator that measures execution time."""
+def debug(func):
+    """Decorator that prints arguments and return value."""
     def wrapper(*args, **kwargs):
-        start = time.time()
+        arg_str = ", ".join(
+            [repr(a) for a in args] +
+            [f"{k}={v!r}" for k, v in kwargs.items()]
+        )
+        print(f"→ {func.__name__}({arg_str})")
         result = func(*args, **kwargs)
-        elapsed = time.time() - start
-        print(f"{func.__name__} took {elapsed:.4f}s")
+        print(f"← {func.__name__} returned {result!r}")
         return result
     return wrapper
 
-@timer
-def slow_sum(n):
-    return sum(range(n))
+@debug
+def add(a, b):
+    return a + b
 
-slow_sum(1_000_000)  # slow_sum took 0.0312s
+add(3, 7)
+# → add(3, 7)
+# ← add returned 10
 ```
 
 ### Preserving Metadata with functools.wraps
@@ -47,21 +50,27 @@ slow_sum(1_000_000)  # slow_sum took 0.0312s
 ```python
 import functools
 
-def log_calls(func):
+def count_calls(func):
+    """Decorator that tracks how many times a function is called."""
     @functools.wraps(func)  # Preserves __name__, __doc__, etc.
     def wrapper(*args, **kwargs):
-        print(f"Calling {func.__name__}({args}, {kwargs})")
+        wrapper.call_count += 1
+        print(f"{func.__name__} has been called {wrapper.call_count} time(s)")
         return func(*args, **kwargs)
+    wrapper.call_count = 0
     return wrapper
 
-@log_calls
-def greet(name):
-    """Return a greeting string."""
-    return f"Hello, {name}!"
+@count_calls
+def compute_area(radius):
+    """Compute the area of a circle."""
+    return 3.14159 * radius ** 2
+
+compute_area(5)   # compute_area has been called 1 time(s)
+compute_area(10)  # compute_area has been called 2 time(s)
 
 # Without @wraps, these would show 'wrapper' info instead
-print(greet.__name__)  # greet
-print(greet.__doc__)   # Return a greeting string.
+print(compute_area.__name__)  # compute_area
+print(compute_area.__doc__)   # Compute the area of a circle.
 ```
 
 ### Decorator Factory (Decorator with Arguments)
@@ -69,21 +78,29 @@ print(greet.__doc__)   # Return a greeting string.
 ```python
 import functools
 
-def repeat(n):
-    """Decorator factory: run the function n times, return list of results."""
+def require_role(role):
+    """Decorator factory: only run the function if user has the right role."""
     def decorator(func):
         @functools.wraps(func)
-        def wrapper(*args, **kwargs):
-            return [func(*args, **kwargs) for _ in range(n)]
+        def wrapper(user, *args, **kwargs):
+            if user.get("role") != role:
+                raise PermissionError(
+                    f"{func.__name__} requires role '{role}', "
+                    f"got '{user.get('role')}'"
+                )
+            return func(user, *args, **kwargs)
         return wrapper
     return decorator
 
-@repeat(3)
-def roll_dice():
-    import random
-    return random.randint(1, 6)
+@require_role("admin")
+def delete_record(user, record_id):
+    return f"Record {record_id} deleted by {user['name']}"
 
-print(roll_dice())  # e.g. [4, 2, 6]
+admin = {"name": "Alice", "role": "admin"}
+print(delete_record(admin, 42))  # Record 42 deleted by Alice
+
+guest = {"name": "Bob", "role": "viewer"}
+# delete_record(guest, 42)  # PermissionError
 ```
 
 ### Stacking Decorators
@@ -91,25 +108,25 @@ print(roll_dice())  # e.g. [4, 2, 6]
 ```python
 import functools
 
-def bold(func):
+def memoize(func):
+    """Cache results based on arguments."""
+    cache = {}
     @functools.wraps(func)
-    def wrapper(*args, **kwargs):
-        return f"<b>{func(*args, **kwargs)}</b>"
+    def wrapper(*args):
+        if args not in cache:
+            cache[args] = func(*args)
+        return cache[args]
     return wrapper
 
-def italic(func):
-    @functools.wraps(func)
-    def wrapper(*args, **kwargs):
-        return f"<i>{func(*args, **kwargs)}</i>"
-    return wrapper
+@memoize
+@debug          # using debug from above
+def fibonacci(n):
+    if n < 2:
+        return n
+    return fibonacci(n - 1) + fibonacci(n - 2)
 
-# Decorators apply bottom-up: italic first, then bold wraps the result
-@bold
-@italic
-def say(text):
-    return text
-
-print(say("hello"))  # <b><i>hello</i></b>
+# debug runs first (inner), then memoize caches the result (outer)
+print(fibonacci(6))  # 8 — debug prints only on cache misses
 ```
 
 ## Your Task

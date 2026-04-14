@@ -22,56 +22,56 @@ Configuration systems manage settings across environments and provide validation
 ### Load Config from a Dictionary
 
 ```python
-# Simple config class backed by a dictionary
-class Config:
+class Settings:
+    """Simple settings container backed by a dictionary."""
     def __init__(self, defaults=None):
-        self._data = defaults or {}
+        self._store = defaults or {}
 
-    def get(self, key, default=None):
-        return self._data.get(key, default)
+    def get(self, key, fallback=None):
+        return self._store.get(key, fallback)
 
     def set(self, key, value):
-        self._data[key] = value
+        self._store[key] = value
 
-cfg = Config({"learning_rate": 0.001, "epochs": 10})
-print(cfg.get("learning_rate"))  # 0.001
-print(cfg.get("batch_size", 32))  # 32 (default)
+app = Settings({"host": "localhost", "port": 8080})
+print(app.get("host"))         # localhost
+print(app.get("timeout", 30))  # 30 (fallback)
 ```
 
 ### Merge Configs — Hierarchical Overrides
 
 ```python
-def merge_configs(base, overrides):
-    """Deep-merge overrides into base config."""
+def deep_merge(base, overrides):
+    """Recursively merge overrides into base config."""
     merged = base.copy()
     for key, value in overrides.items():
         if isinstance(value, dict) and isinstance(merged.get(key), dict):
-            merged[key] = merge_configs(merged[key], value)
+            merged[key] = deep_merge(merged[key], value)
         else:
             merged[key] = value
     return merged
 
-base = {"model": {"layers": 3, "dropout": 0.1}, "lr": 0.001}
-prod = {"model": {"dropout": 0.5}, "lr": 0.0001}
+defaults = {"db": {"host": "localhost", "port": 5432}, "debug": True}
+production = {"db": {"host": "db.prod.internal"}, "debug": False}
 
-final = merge_configs(base, prod)
+final = deep_merge(defaults, production)
 print(final)
-# {'model': {'layers': 3, 'dropout': 0.5}, 'lr': 0.0001}
+# {'db': {'host': 'db.prod.internal', 'port': 5432}, 'debug': False}
 ```
 
-### Validate Config
+### Check Required Settings
 
 ```python
-def validate_config(config, required_keys):
-    """Raise an error if any required key is missing."""
-    missing = [k for k in required_keys if k not in config]
+def check_settings(settings, required_keys):
+    """Raise an error if any required key is missing from settings."""
+    missing = [k for k in required_keys if k not in settings]
     if missing:
-        raise ValueError(f"Missing required config keys: {missing}")
+        raise ValueError(f"Missing required settings: {missing}")
     return True
 
-config = {"model_name": "bert", "epochs": 5}
-validate_config(config, ["model_name", "epochs"])  # OK
-# validate_config(config, ["lr"])  # Raises ValueError
+settings = {"db_url": "sqlite:///app.db", "secret_key": "abc123"}
+check_settings(settings, ["db_url", "secret_key"])  # OK
+# check_settings(settings, ["redis_url"])  # Raises ValueError
 ```
 
 ### Environment Override
@@ -79,19 +79,19 @@ validate_config(config, ["model_name", "epochs"])  # OK
 ```python
 import os
 
-def load_config_with_env(defaults):
+def apply_env_overrides(defaults, prefix="CFG"):
     """Override config values with environment variables."""
     config = defaults.copy()
     for key in defaults:
-        env_key = f"APP_{key.upper()}"
+        env_key = f"{prefix}_{key.upper()}"
         env_val = os.environ.get(env_key)
         if env_val is not None:
             config[key] = type(defaults[key])(env_val)
     return config
 
-defaults = {"batch_size": 32, "debug": "false"}
-# If APP_BATCH_SIZE=64 is set in the environment, batch_size becomes 64
-config = load_config_with_env(defaults)
+defaults = {"workers": 4, "log_level": "info"}
+# If CFG_WORKERS=8 is set in the environment, workers becomes 8
+config = apply_env_overrides(defaults)
 ```
 
 ## Your Task

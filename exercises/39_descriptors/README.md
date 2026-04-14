@@ -22,35 +22,38 @@ Descriptors control attribute access using `__get__`, `__set__`, and `__delete__
 ### Simple Descriptor Class
 
 ```python
-class Verbose:
-    """A non-data descriptor that logs attribute access."""
+class ReadOnly:
+    """A data descriptor that prevents modification after initial set."""
     def __set_name__(self, owner, name):
         self.name = name
 
     def __get__(self, obj, objtype=None):
         if obj is None:
             return self
-        value = obj.__dict__.get(self.name, "N/A")
-        print(f"Accessing '{self.name}' -> {value}")
-        return value
+        return obj.__dict__.get(self.name)
 
-class Person:
-    name = Verbose()
+    def __set__(self, obj, value):
+        if self.name in obj.__dict__:
+            raise AttributeError(f"'{self.name}' is read-only after creation")
+        obj.__dict__[self.name] = value
 
-p = Person()
-p.__dict__["name"] = "Alice"
-print(p.name)
-# Accessing 'name' -> Alice
-# Alice
+class DatabaseRecord:
+    record_id = ReadOnly()
+
+row = DatabaseRecord()
+row.record_id = 101      # OK — first assignment
+print(row.record_id)     # 101
+# row.record_id = 999    # AttributeError: 'record_id' is read-only after creation
 ```
 
 ### Data Descriptor with Validation
 
 ```python
-class TypedProperty:
-    """A data descriptor that enforces type on assignment."""
-    def __init__(self, expected_type):
-        self.expected_type = expected_type
+class RangeValidator:
+    """A data descriptor that enforces a numeric range on assignment."""
+    def __init__(self, minimum, maximum):
+        self.minimum = minimum
+        self.maximum = maximum
 
     def __set_name__(self, owner, name):
         self.name = name
@@ -61,28 +64,29 @@ class TypedProperty:
         return obj.__dict__.get(self.name)
 
     def __set__(self, obj, value):
-        if not isinstance(value, self.expected_type):
-            raise TypeError(
-                f"{self.name} must be {self.expected_type.__name__}, "
-                f"got {type(value).__name__}"
+        if not (self.minimum <= value <= self.maximum):
+            raise ValueError(
+                f"{self.name} must be between {self.minimum} and "
+                f"{self.maximum}, got {value}"
             )
         obj.__dict__[self.name] = value
 
-class Model:
-    learning_rate = TypedProperty(float)
-    epochs = TypedProperty(int)
+class Product:
+    price = RangeValidator(0.01, 10_000)
+    quantity = RangeValidator(0, 999)
 
-m = Model()
-m.learning_rate = 0.001  # OK
-m.epochs = 10            # OK
-# m.epochs = 3.5         # TypeError: epochs must be int, got float
+item = Product()
+item.price = 19.99     # OK
+item.quantity = 5       # OK
+# item.price = -1       # ValueError: price must be between 0.01 and 10000, got -1
+# item.quantity = 2000  # ValueError: quantity must be between 0 and 999, got 2000
 ```
 
-### Lazy Property Pattern
+### Cached Property Pattern
 
 ```python
-class LazyProperty:
-    """Compute a value once, then cache it on the instance."""
+class CachedProperty:
+    """Compute a value once on first access, then cache it on the instance."""
     def __init__(self, func):
         self.func = func
         self.attr_name = func.__name__
@@ -90,23 +94,24 @@ class LazyProperty:
     def __get__(self, obj, objtype=None):
         if obj is None:
             return self
-        # Compute once and store directly on the instance
         value = self.func(obj)
-        setattr(obj, self.attr_name, value)
+        setattr(obj, self.attr_name, value)  # store directly → skips descriptor next time
         return value
 
-class DataSet:
-    def __init__(self, raw):
-        self.raw = raw
+import math
 
-    @LazyProperty
-    def processed(self):
-        print("Computing (only runs once)...")
-        return [x * 2 for x in self.raw]
+class Circle:
+    def __init__(self, radius):
+        self.radius = radius
 
-ds = DataSet([1, 2, 3])
-print(ds.processed)  # Computing (only runs once)... -> [2, 4, 6]
-print(ds.processed)  # [2, 4, 6]  (cached, no recomputation)
+    @CachedProperty
+    def area(self):
+        print("Computing area (runs only once)...")
+        return math.pi * self.radius ** 2
+
+c = Circle(5)
+print(c.area)  # Computing area (runs only once)... → 78.539...
+print(c.area)  # 78.539...  (cached — no recomputation)
 ```
 
 ## Your Task

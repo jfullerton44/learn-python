@@ -19,104 +19,98 @@ Pipeline pattern chains processing stages for clean data flow and separation of 
 
 ## Code Examples
 
-### Simple Pipeline with Stages
+### Simple Function Composition Chain
 
 ```python
-def normalize(data):
-    max_val = max(data)
-    return [x / max_val for x in data]
+import functools
 
-def round_values(data):
-    return [round(x, 2) for x in data]
+def compose(*functions):
+    """Chain functions so each feeds into the next (left-to-right)."""
+    def run(data):
+        return functools.reduce(lambda v, f: f(v), functions, data)
+    return run
 
-class Pipeline:
-    def __init__(self):
-        self._stages = []
+strip_whitespace = lambda text: text.strip()
+lowercase = lambda text: text.lower()
+remove_punctuation = lambda text: "".join(c for c in text if c.isalnum() or c == " ")
 
-    def add_stage(self, func):
-        self._stages.append(func)
-        return self  # Enable chaining
-
-    def execute(self, data):
-        for stage in self._stages:
-            data = stage(data)
-        return data
-
-result = (Pipeline()
-          .add_stage(normalize)
-          .add_stage(round_values)
-          .execute([10, 20, 50, 30]))
-print(result)  # [0.2, 0.4, 1.0, 0.6]
+clean = compose(strip_whitespace, lowercase, remove_punctuation)
+print(clean("  Hello, World!  "))  # "hello world"
 ```
 
-### Composable Pipeline with Operator Chaining
+### DataFlow Class with Operator Chaining
 
 ```python
-class Stage:
+class DataFlow:
+    """Chain transforms using the >> operator."""
     def __init__(self, func):
         self.func = func
 
-    def __or__(self, other):
-        """Enable stage1 | stage2 syntax."""
+    def __rshift__(self, other):
+        """Enable flow1 >> flow2 syntax."""
+        outer = self
         def combined(data):
-            return other.func(self.func(data))
-        return Stage(combined)
+            return other.func(outer.func(data))
+        return DataFlow(combined)
 
-    def __call__(self, data):
+    def run(self, data):
         return self.func(data)
 
-to_upper = Stage(lambda s: s.upper())
-add_exclaim = Stage(lambda s: s + "!")
-repeat = Stage(lambda s: s * 2)
+tokenize = DataFlow(lambda s: s.split())
+sort_words = DataFlow(lambda words: sorted(words))
+join_csv = DataFlow(lambda words: ", ".join(words))
 
-shout = to_upper | add_exclaim | repeat
-print(shout("hello"))  # "HELLO!HELLO!"
+alphabetize = tokenize >> sort_words >> join_csv
+print(alphabetize.run("banana cherry apple"))  # "apple, banana, cherry"
 ```
 
-### Error Handling in a Pipeline
+### Error-Aware Chain
 
 ```python
-class SafePipeline:
+class SafeChain:
+    """Chains transforms with per-step error handling."""
     def __init__(self):
-        self._stages = []
+        self._transforms = []
 
-    def add_stage(self, name, func):
-        self._stages.append((name, func))
+    def then(self, label, func):
+        self._transforms.append((label, func))
         return self
 
-    def execute(self, data):
-        for name, func in self._stages:
+    def run(self, data):
+        for label, func in self._transforms:
             try:
                 data = func(data)
-            except Exception as e:
-                return {"error": f"Stage '{name}' failed: {e}", "data": data}
-        return {"error": None, "data": data}
+            except Exception as exc:
+                return {"error": f"'{label}' failed: {exc}", "last_good": data}
+        return {"error": None, "result": data}
 
-result = (SafePipeline()
-          .add_stage("double", lambda x: [v * 2 for v in x])
-          .add_stage("invert", lambda x: [1 / v for v in x])  # May divide by zero
-          .execute([1, 0, 3]))
+result = (SafeChain()
+          .then("parse_ints", lambda xs: [int(x) for x in xs])
+          .then("reciprocals", lambda xs: [1 / x for x in xs])
+          .run(["4", "0", "2"]))
 print(result)
-# {"error": "Stage 'invert' failed: division by zero", "data": [2, 0, 6]}
+# {'error': "'reciprocals' failed: division by zero", 'last_good': [4, 0, 2]}
 ```
 
-### Lazy Pipeline with Generators
+### Lazy Stream Processing with Generators
 
 ```python
-def lazy_pipeline(data, *stages):
-    """Process items one at a time through all stages (memory-efficient)."""
-    for item in data:
-        result = item
-        for stage in stages:
-            result = stage(result)
-        yield result
+def stream_through(iterable, *transforms):
+    """Push each item through all transforms one at a time (memory-efficient)."""
+    for item in iterable:
+        value = item
+        for fn in transforms:
+            value = fn(value)
+        yield value
 
-results = list(lazy_pipeline(
-    range(5),
-    lambda x: x ** 2,
-    lambda x: x + 1,
+lines = ["  HELLO  ", " world ", "  PyThOn "]
+cleaned = list(stream_through(
+    lines,
+    str.strip,
+    str.lower,
+    lambda s: s.capitalize(),
 ))
-print(results)  # [1, 2, 5, 10, 17]
+print(cleaned)  # ['Hello', 'World', 'Python']
 ```
 
 ## Your Task
